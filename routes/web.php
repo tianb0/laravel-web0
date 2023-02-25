@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ListingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listing;
@@ -15,12 +16,30 @@ use App\Models\Listing;
 |
 */
 
-Route::get('/', function () {
-  return view('listings', [
-    'heading' => 'Latest Listings',
-    'listings' => Listing::all(),
-  ]);
-});
+// common resource routes
+// index - show all listings
+// show - show single listing
+// create - show form to create new listing
+// store - store new listing
+// edit - show form to edit listing
+// update - update listing
+// destroy - delete listing
+
+Route::get('/', [ListingController::class, 'index']);
+
+Route::get('/listings/create', [ListingController::class, 'create']);
+
+Route::post('/listings', [ListingController::class, 'store']);
+
+// should below /create
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
+
+/* Route::get('/', function () { */
+/*   return view('listings', [ */
+/*     'heading' => 'Latest Listings', */
+/*     'listings' => Listing::all(), */
+/*   ]); */
+/* }); */
 
 /* Route::get('/listings/{id}', function($id){ */
 /*     return view('listing', [ */
@@ -40,15 +59,15 @@ Route::get('/', function () {
 /*   } */
 /* }); */
 
-Route::get('/listings/{listing}', function (Listing $listing) {
-  return view('listing', [
-    'listing' => $listing
-  ]);
-});
+/* Route::get('/listings/{listing}', function (Listing $listing) { */
+/*   return view('listing', [ */
+/*     'listing' => $listing */
+/*   ]); */
+/* }); */
 
-Route::get('/check', function () {
-  return 'good';
-});
+/* Route::get('/check', function () { */
+/*   return 'good'; */
+/* }); */
 
 /* Route::get('/', function () { */
 /*     return view('welcome'); */
