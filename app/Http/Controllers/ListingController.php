@@ -62,7 +62,11 @@ class ListingController extends Controller
   }
 
   public function update(Request $request, Listing $listing)
+
   {
+    if ($listing->user_id != auth()->id()) {
+      abort(403, 'Unauthorized');
+    }
     /* dd($request->file('logo')); */
     // validate
     $formFields = $request->validate([
@@ -86,7 +90,15 @@ class ListingController extends Controller
 
   public function destroy(Listing $listing)
   {
+    if ($listing->user_id != auth()->id()) {
+      abort(403, 'Unauthorized');
+    }
     $listing->delete();
     return redirect('/')->with('message', 'Listing deleted Successfully');
+  }
+
+  public function manage()
+  {
+    return view('listings.manage', ['listings' => auth()->user()->listings]);
   }
 }

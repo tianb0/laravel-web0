@@ -32,6 +32,8 @@ Route::get('/listings/create', [ListingController::class, 'create'])->middleware
 
 Route::post('/listings', [ListingController::class, 'store']);
 
+Route::get('/listings/manage', [ListingController::class, 'manage'])->middleware('auth');
+
 Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])->middleware('auth');
 
 Route::put('/listings/{listing}', [ListingController::class, 'update'])->middleware('auth');
@@ -50,6 +52,7 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
 
 /* Route::get('/', function () { */
 /*   return view('listings', [ */
